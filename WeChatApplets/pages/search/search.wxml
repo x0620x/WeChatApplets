@@ -1,0 +1,31 @@
+<view class="data-v-a007e1a8">
+	<cu-custom vue-id="1" bgColor="bg-white" class="data-v-a007e1a8" bind:__l="__l" vue-slots="{{['content']}}">
+		<view slot="content" class="data-v-a007e1a8">文章寻探</view>
+	</cu-custom>
+	<view class="cu-bar search bg-white data-v-a007e1a8">
+		<view class="search-form round data-v-a007e1a8"><text class="cuIcon-search data-v-a007e1a8"></text><input
+			 confirm-type="search" placeholder="在这里输入搜索内容!" data-event-opts="{{[['confirm',[['searchStart']]],['input',[['__set_model',['','searchText','$event',['trim']]]]],['blur',[['$forceUpdate']]]]}}"
+			 value="{{searchText}}" bindconfirm="__e" bindinput="__e" bindblur="__e" class="data-v-a007e1a8" /></view>
+		<view class="action data-v-a007e1a8"><button data-event-opts="{{[['tap',[['searchStart']]]]}}" class="cu-btn bg-green shadow-blur round data-v-a007e1a8" bindtap="__e">搜索</button></view>
+	</view>
+	<block wx:if="{{hList.length>0}}">
+		<view class="s-circle radius bg-white data-v-a007e1a8">
+			<view class="header data-v-a007e1a8"><text class="cuIcon-title padding-right-sm text-blue data-v-a007e1a8"></text>历史记录<image
+				 src="../../static/zy-search/delete.svg" mode="aspectFit" data-event-opts="{{[['tap',[['delhistory',['$event']]]]]}}" bindtap="__e" class="data-v-a007e1a8"></image>
+			</view>
+			<view class="list data-v-a007e1a8">
+				<block wx:for="{{hList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+					<view data-event-opts="{{[['tap',[['liSou',['$0'],[[['hList','',index]]]]]]]}}" bindtap="__e"  class="data-v-a007e1a8">{{item}}</view>
+				</block>
+			</view>
+		</view>
+	</block>
+	<view class="wanted-circle bg-white data-v-a007e1a8">
+		<view class="header data-v-a007e1a8"><text class="cuIcon-title padding-right-sm text-red data-v-a007e1a8"></text>猜你想搜的</view>
+		<view class="list data-v-a007e1a8">
+			<block wx:for="{{hotKeywordList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+				<view data-event-opts="{{[['tap',[['keywordsClick',['$0'],[[['hotKeywordList','',index]]]]]]]}}" bindtap="__e" class="data-v-a007e1a8">{{item}}</view>
+			</block>
+		</view>
+	</view>
+</view>

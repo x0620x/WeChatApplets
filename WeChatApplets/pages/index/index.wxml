@@ -1,0 +1,125 @@
+<view class="bg-gray">
+	<cu-custom vue-id="1" bgColor="bg-gray" bind:__l="__l" vue-slots="{{['content']}}" >
+		<view slot="content">爆胎的博客</view>
+	</cu-custom>
+	<block wx:if="{{swiperList!='NULL'}}">
+	<swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+		<block wx:for="{{swiperList}}" wx:for-item="item" wx:for-index="index" wx:key="index" class="{{cardCur==index?'cur':''}}">
+			<block wx:if="{{index<3}}">
+				<swiper-item data-cid="{{item.cid}}" data-event-opts="{{[['tap',[['goDetails',['$event']]]]]}}" bindtap="__e" >
+					<view class="swiper-item">
+						<image src="{{item.thumb[0].str_value}}" mode="aspectFill"></image>
+					</view>
+				</swiper-item>
+		</block>
+	</block>
+	</swiper>
+	</block>
+	
+	<view><text>\n</text></view>
+	<view class='nav-list'>
+	  <navigator open-type="navigate" hover-class='none' url="/pages/categorieslist/categorieslist?mid={{item.mid}}" class="nav-li {{item.bg_color}}" style="{{'animation:'+('show '+((index+1)*0.2+1)+'s 1')+';'}}" wx:for="{{categories}}" bindtap="__e">
+		<view class="nav-title">{{item.title}}</view>
+		<view class="nav-name">{{item.name}}</view>
+		<text class='cuIcon-{{item.cuIcon}}'></text>
+	  </navigator>
+	</view>
+
+<!-- 	<view class="nav-list">
+		<navigator open-type="navigate" class="nav-li {{[item.bg_color]}}" wx:for="{{categories}}" wx:for-item="item">
+			<view class="nav-li" style="{{'animation:'+('show '+((index+1)*0.2+1)+'s 1')+';'}}" data-mid="{{item.mid}}" data-event-opts="{{[['tap',[['goCategorieslist',['$event']]]]]}}" bindtap="__e">
+				<text class='cuIcon-{{item.cuIcon}}'></text>
+				<block wx:if="{{item.count!=0}}"></block>
+				<view class="nav-title">{{item.title}}</view>
+				<view class="nav-name">{{item.name}}</view>
+			</view>
+		</navigator>
+		<view class='cu-tabbar-height'></view>
+	</view>
+<view class="cu-bar">
+		<view class="action"><text class="cuIcon-titles text-brown"></text><text class="text-xl text-bold">推荐阅读</text></view>
+		<view class="padding-sm margin-xs justify-end"><text class="cuIcon-evaluate_fill text-brown"></text></view>
+	</view> -->
+<!-- 	<view class="week-container margin-top">
+		<scroll-view class="swiper-wrapper" scroll-x="{{true}}" scroll-with-animation="{{true}}">
+			<block wx:for="{{recommendList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+				<view class="new-article shadow-mini" data-cid="{{item.cid}}" data-event-opts="{{[['tap',[['goDetails',['$event']]]]]}}" bindtap="__e">
+					<view class="radius">
+						<image class="article-img" src="{{item.thumb[0].str_value}}" mode="scaleToFill"></image>
+						<view class="article-title bg-gray"><text class="text-sm text-black">{{item.title}}</text></view>
+					</view>
+				</view>
+			</block>
+		</scroll-view>
+	</view> -->
+
+  <view class="cu-bar bg-gray">
+    <view class="action sub-title">
+      <text class="text-xl text-bold text-green">最新动态</text>
+      <text class="bg-green"></text>
+    </view>
+	</view>
+	<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+		<view class="bg-gray" data-cid="{{item.$orig.cid}}" data-event-opts="{{[['tap',[['goDetails',['$event']]]]]}}" bindtap="__e">
+			<block wx:if="{{item.$orig.style[0].str_value==1}}">
+				<view class="cu-card case">
+					<view class="cu-item  shadow">
+						<view class="image">
+							<image src="{{item.$orig.thumb[0].str_value}}" mode="widthFix"></image>
+							<view class="cu-tag bg-blue">{{item.$orig.categories[0].name}}</view>
+							<view class="cu-bar bg-gradual-blue"><text class="text-cut">{{item.$orig.title}}</text></view>
+						</view>
+						<view class="cu-list menu-avatar">
+							<view class="cu-item">
+								<view class="cu-avatar">
+									<image class="cu-avatar lg justify-start" src="../../static/logo.jpg"></image>
+								</view>
+								<view class="content flex-sub">
+									<view class="text-grey">{{item.$orig.author}}</view>
+									<view class="text-white text-sm flex justify-between">
+										<view>{{item.m0}}</view>
+										<view class="text-white text-sm"><text class="cuIcon-attentionfill margin-lr-xs"></text>{{''+item.$orig.views[0].views+''}}<text
+											 class="cuIcon-appreciatefill margin-lr-xs"></text>{{''+item.$orig.likes[0].likes+''}}<text class="cuIcon-messagefill margin-lr-xs"></text>{{''+item.$orig.commentsNum+''}}</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{item.$orig.style[0].str_value==2}}">
+				<view class="cu-card">
+					<view class="cu-item shadow" style="height:250rpx;">
+						<view class="thumb margin-right" style="{{'height:250rpx;background-size:cover;'+('background-image:'+('url('+item.$orig.thumb[0].str_value+')')+';')}}"></view>
+						<view><text>\n</text></view>
+						<view class="text-cut text-shadow text-center padding-top text-xl text-bold">{{item.$orig.title}}</view>
+						<!-- 简介拉取失效<view class="text-content padding-top-xs moretext-cut padding-right-xs">{{item.$orig.description[0].str_value}}</view> -->
+						<view><text>\n</text></view>
+						<view class="text-white text-sm padding-top-sm flex justify-end padding-right-sm"><text class="cuIcon-attention margin-lr-xs "></text>{{''+item.$orig.views[0].views+''}}<text
+							 class="cuIcon-appreciate margin-lr-xs "></text>{{''+item.$orig.likes[0].likes+''}}<text class="cuIcon-message margin-lr-xs "></text>{{''+item.$orig.commentsNum+''}}</view>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{item.$orig.style[0].str_value==3}}">
+				<view class="cu-card ">
+					<view class=" cu-item align-center shadow" style="{{'height:350rpx;background-size:cover;'+('background-image:'+('url('+item.$orig.thumb[0].str_value+')')+';')}}">
+						<view style="background:rgba(0,0,0,0.4);height:100%;">
+							<view class="cu-tag bg-gradual-green">{{item.$orig.categories[0].name}}</view>
+							<view class="padding">
+								<view><text>\n</text></view>
+								<view class="padding-xs text-center text-xl text-bold text-cut text-white">{{item.$orig.title}}</view>
+								<!-- 简介拉取失效<view class="text-content padding-top-xs moretext-cut padding-right-xs">{{item.$orig.description[0].str_value}}</view> -->
+								<view><text>\n</text></view>
+								<view class="padding-xs margin-top-sm flex align-end">
+									<view class="cu-tag bg-red light df round"><text class="cuIcon-attention margin-lr-xs"></text>{{''+item.$orig.views[0].views}}  </view>
+									<view class="cu-tag bg-green light df round"><text class="cuIcon-appreciate margin-lr-xs"></text>{{''+item.$orig.likes[0].likes}}  </view>
+									<view class="cu-tag bg-brown light df round"><text class="cuIcon-message margin-lr-xs"></text>{{''+item.$orig.commentsNum}}  </view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</block>
+</view>

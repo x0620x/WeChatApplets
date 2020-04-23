@@ -1,0 +1,17 @@
+<view>
+	<cu-custom vue-id="1" bgColor="bg-white" bind:__l="__l" vue-slots="{{['content']}}">
+		<view slot="content">文章分类</view>
+	</cu-custom>
+	<scroll-view class="page bg-white" scroll-y>
+		<view class="cu-card bg-white">
+			<block wx:for="{{categories}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+				<block wx:if="{{index>0}}">
+					<view class="cu-item bg-img shadow-warp" style="background-image:url(https://tuku.ycygame.cn/anhaowu/wdh2236.jpg);"
+					 data-mid="{{item.mid}}" data-event-opts="{{[['tap',[['goCategorieslist',['$event']]]]]}}" bindtap="__e">
+						<view class="cardTitle" style="{{'animation:'+('show '+((index+1)*0.2+1)+'s 1')+';'}}">{{''+item.name+''}}</view>
+					</view>
+				</block>
+			</block>
+		</view>
+	</scroll-view>
+</view>

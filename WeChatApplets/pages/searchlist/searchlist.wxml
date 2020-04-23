@@ -1,0 +1,44 @@
+<view>
+	<view>
+		<cu-custom vue-id="1" bgColor="bg-white" isBack="{{true}}" bind:__l="__l" vue-slots="{{['backText','content']}}">
+			<view slot="backText">返回</view>
+			<view slot="content">搜索<text class="text-red padding-sm">{{key}}</text>的结果</view>
+		</cu-custom>
+	</view>
+	<block wx:for="{{searchlist}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+		<block wx:if="{{!loadModal}}">
+			<view style="{{'animation:'+('show '+((index+1)*0.2+1)+'s 1')+';'}}" data-cid="{{item.cid}}" data-event-opts="{{[['tap',[['goDetails',['$event']]]]]}}" bindtap="__e" >
+				<view class="cu-card article">
+					<view class="cu-item shadow">
+						<view class="title">
+							<view class="text-cut">{{item.title}}</view>
+						</view>
+						<view class="content">
+							<image src="{{item.thumb[0].str_value}}" mode="aspectFill"></image>
+							<view class="desc">
+								<!--简介拉取暂时失效 <view class="text-content">{{item.description[0].str_value}}</view> -->
+								<view><text>\n\n</text></view>
+								<view>
+									<view class="cu-tag bg-red light sm round"><text class="cuIcon-messagefill margin-lr-xs"></text>{{''+item.commentsNum}}</view>
+									<view class="cu-tag bg-green light sm round"><text class="cuIcon-appreciatefill margin-lr-xs"></text>{{item.likes[0].likes}}</view>
+									<view class="cu-tag bg-green light sm round"><text class="cuIcon-attentionfill margin-lr-xs"></text>{{''+item.views[0].views}}</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</block>
+	</block>
+	<block wx:if="{{showimg&&!loadModal}}">
+		<view class="justify-center padding-lr">
+			<image style="width:'750rpx';" src="../../static/none.png" mode="aspectFit"></image>
+		</view>
+	</block>
+	<block wx:if="{{loadModal}}">
+		<view class="cu-load load-modal">
+			<view class="cuIcon-emojifill text-orange"></view>
+			<view class="gray-text">加载中...</view>
+		</view>
+	</block>
+</view>

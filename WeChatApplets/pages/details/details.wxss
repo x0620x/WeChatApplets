@@ -1,0 +1,84 @@
+.thumb {
+	float: left;
+	width: 280rpx
+}
+
+.radius-c {
+	border-radius: 35rpx 35rpx 0rpx 0rpx
+}
+
+.data-lei {
+	background-color: #44cc86;
+	border-radius: 10rpx;
+	padding: 0rpx 15rpx;
+	color: #fff;
+	margin-right: 16rpx;
+	font-size: 34rpx
+}
+
+.data-h {
+	background-color: #fff;
+	border-radius: 20rpx;
+	margin: 20rpx 30rpx;
+	padding: 20rpx 20rpx;
+	font-size: 34rpx
+}
+
+.thum-mask {
+	position: relative;
+	width: 100%;
+	height: 400rpx
+}
+
+.thum-mask:after {
+	content: "";
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: .35;
+	background: #191919
+}
+
+.img-mask {
+	width: 100%;
+	height: 400rpx
+}
+
+.fd {
+	position: relative;
+	padding: 40rpx 24rpx;
+	box-shadow: 2rpx 4rpx 40rpx #c2c2c2;
+	z-index: 999;
+	margin-top: -60rpx;
+	margin-bottom: 24rpx;
+	margin-left: 24rpx;
+	margin-right: 24rpx;
+	border-radius: 12rpx
+}
+
+.author {
+	position: relative;
+	z-index: 999;
+	margin-top: -160rpx
+}
+
+.shadow {
+	box-shadow: 2rpx 4rpx 15rpx #c2c2c2
+}
+
+.bottom {
+	padding-bottom: 160rpx
+}
+
+.moretext-cut {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	overflow: hidden
+}

@@ -1,0 +1,30 @@
+<view>
+	<view>
+		<cu-custom vue-id="1" bgColor="bg-white" isBack="{{true}}" bind:__l="__l" vue-slots="{{['backText','content']}}">
+			<view slot="backText">返回</view>
+			<view slot="content">{{name}}</view>
+		</cu-custom>
+	</view>
+	<block wx:for="{{articleList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+		<view style="{{'animation:'+('show '+((index+1)*0.2+1)+'s 1')+';'}}" data-cid="{{item.cid}}" data-event-opts="{{[['tap',[['goDetails',['$event']]]]]}}" bindtap="__e">
+			<view class="cu-card article">
+				<view class="cu-item shadow">
+					<view class="title">
+						<view class="text-cut">{{item.title}}</view>
+					</view>
+					<view class="content">
+						<image src="{{item.thumb[0].str_value}}" mode="aspectFill"></image>
+						<view class="desc">
+							<!--简介拉取失效 <view class="text-content">{{''+item.description[0].str_value}}</view> -->
+							<view>
+								<view class="cu-tag bg-red light sm round"><text class="cuIcon-messagefill margin-lr-xs"></text>{{''+item.commentsNum}}</view>
+								<view class="cu-tag bg-green light sm round"><text class="cuIcon-appreciatefill margin-lr-xs"></text>{{item.likes}}</view>
+								<view class="cu-tag bg-green light sm round"><text class="cuIcon-attentionfill margin-lr-xs"></text>{{''+item.views}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+</view>

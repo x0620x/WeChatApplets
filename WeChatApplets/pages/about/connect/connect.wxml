@@ -1,0 +1,17 @@
+<view>
+	<cu-custom vue-id="1" bgColor="bg-white" isBack="{{true}}" bind:__l="__l" vue-slots="{{['backText','content']}}">
+		<view slot="backText">返回</view>
+		<view slot="content">说明页面</view>
+	</cu-custom>
+	<view class="margin radius bg-white">
+		<view class="cu-bar">
+			<view class="action"><text class="cuIcon-titles text-brown"></text><text class="text-xl text-bold">随便说几句</text></view>
+		</view>
+		<view class="text padding"><text class="cuIcon-title margin-right text-green"></text>这是一款通过uniapp开发的基于Typecho博客的小程序源码，界面采用了简单有美观的ColorUI进行构建</view>
+		<view class="text padding"><text class="cuIcon-title margin-right text-blue"></text>同时感谢开源项目Wetypecho，该程序api插件就是通过这个插件修改的，但是名称以及用Wetypecho。修改了部分api输出方式，所以用原版小程序可能会出现一下故障。</view>
+		<view class="text padding"><text class="cuIcon-title margin-right text-blue"></text>小程序前端页面原创安好屋，本人修改</view>
+	</view>
+	<view class="flex">
+		<view data-event-opts="{{[['tap',[['wangZhi',['$event']]]]]}}" class="flex-sub bg-gradual-green text-center margin radius padding" bindtap="__e">复制官网</view>
+	</view>
+</view>

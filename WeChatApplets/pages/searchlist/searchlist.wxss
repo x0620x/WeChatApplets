@@ -1,0 +1,3 @@
+.shadow {
+	box-shadow: 2rpx 4rpx 15rpx #c2c2c2
+}

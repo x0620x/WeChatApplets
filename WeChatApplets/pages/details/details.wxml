@@ -1,0 +1,163 @@
+<view>
+	<cu-custom vue-id="1" bgColor="bg-white" isBack="{{true}}" vue-slots="{{['backText','content']}}">
+		<view slot="backText">返回</view>
+		<view slot="content" class="text-cut" style="width:150px" >{{title}}</view>
+	</cu-custom>
+	<block wx:if="{{!loadModal}}">
+		<view>
+			<view class="thum-mask">
+				<image class="cover cover-100 img-mask" mode="aspectFill" src="{{thumb}}"></image>
+			</view>
+			<view class="data-h fd">
+				<view class="title padding-bottom-sm solid-bottom">{{''+title}}</view>
+				<view class="margin-top-sm">
+					<view class="cu-capsule round">
+						<view class="cu-tag bg-gray "><text class="cuIcon-time"></text></view>
+						<view class="cu-tag line-gray">{{time}}</view>
+					</view>
+					<view class="cu-capsule round">
+						<view class="cu-tag bg-blue "><text class="cuIcon-attention"></text></view>
+						<view class="cu-tag line-blue">{{''+views}}</view>
+					</view>
+					<view class="cu-capsule round">
+						<view class="cu-tag bg-red "><text class="cuIcon-appreciate"></text></view>
+						<view class="cu-tag line-red">{{likes}}</view>
+					</view>
+					<view class="cu-capsule round">
+						<view class="cu-tag bg-green"><text class="cuIcon-message"></text></view>
+						<view class="cu-tag line-green">{{''+commentsNum}}</view>
+					</view>
+				</view>
+			</view>
+			<view class="padding margin-top bg-white radius-c solids-bottom ">
+				<view class="margin-xs">
+					<u-parse vue-id="2" content="{{content}}" data-event-opts="{{[['^preview',[['preview',['$event']]]],['^navigate',[['navigate']]]]}}"
+					 bind:preview="__e" bind:navigate="__e" bind:__l="__l"></u-parse>
+				</view>
+				<view class="like-area solid-top bg-white text-center flex-direction padding bottom"><button data-event-opts="{{[['tap',[['showModal',['$event']]]]]}}"
+					 class="cu-btn cuIcon line-red round lg padding" bindtap="__e"><text class="cuIcon-likefill xl"></text></button>
+					<view class="margin-top">愣着干嘛，还不点赞！</view>
+				</view>
+			</view>
+			<view class="cu-card article author">
+				<view class="cu-item shadow">
+					<view class="title"><text class="cuIcon-titles text-green margin-right-sm"></text>作者介绍：</view>
+					<view class="flex">
+						<view class="flex-sub">
+							<image class="cu-avatar xl margin-left-lg solids round" src="https://cdn.xsiy.ltd/photo/%E5%A4%B4%E5%83%8F.jpg" mode="widthfix"></image>
+						</view>
+						<view class="flex-twice">
+							<view class="padding-bottom-sm"><text class="cuIcon-title text-red margin-right-sm"></text>{{"名称："+author}}</view>
+							<view class="padding-bottom-sm"><text class="cuIcon-title text-red margin-right-sm"></text>{{"网址："+website}}</view>
+							<!-- <view><text class="cuIcon-title text-red margin-right-sm"></text>{{"微信公众号："+account}}</view> -->
+						</view>
+					</view>
+				</view>
+			</view>
+			<block wx:if="{{showshare!=0}}">
+				<view>
+					<view class="cu-bar">
+						<view class="action"><text class="cuIcon-titles text-brown"></text><text class="text-xl text-bold">热门评论</text></view>
+					</view>
+					<block wx:if="{{comments!='NULL'}}">
+						<view class="cu-list menu-avatar comment solids-top margin-lr-sm">
+							<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="__i0__" wx:key="coid">
+								<view class="cu-item">
+									<block wx:if="{{item.$orig.authorImg!=null}}">
+										<view class="cu-avatar round" style="{{'background-image:'+('url('+item.$orig.authorImg+')')+';'}}"></view>
+									</block>
+									<block wx:else>
+										<view class="cu-avatar round" style="background-image:url('https://cdn.xsiy.ltd/wxxcx/touxiang.jpg');"></view>
+									</block>
+									<view class="content">
+										<view class="text-grey">{{item.$orig.author}}</view>
+										<view class="text-gray text-content text-df">{{''+item.$orig.text+''}}</view>
+										<view class="flex justify-between">
+											<view></view>
+											<view class="text-gray text-df">{{item.m0}}</view>
+										</view>
+										<block wx:for="{{item.$orig.replays}}" wx:for-item="a" wx:for-index="__i1__" wx:key="coid">
+											<view class="bg-grey padding-sm margin-top-sm  text-sm">
+												<view class="flex">
+													<view class="text-red">{{a.author+' :'}}</view>
+													<view class="flex-sub">{{a.text}}</view>
+												</view>
+											</view>
+										</block>
+									</view>
+								</view>
+							</block>
+						</view>
+					</block>
+					<block wx:else>
+						<view><button class=" bg-white">文章暂无评论</button></view>
+					</block>
+					<view class="margin-bottom">
+						<view class="cu-bar margin-top-sm">
+							<view class="action"><text class="cuIcon-titles text-red"></text><text class="text-xl text-bold">说说你的看法</text></view>
+						</view>
+						<block wx:if="{{userInfo!=null}}">
+							<view class=" bg-white margin-lr-sm padding-sm">
+								<view class="padding">
+									<view class="cu-avatar-group">
+										<block wx:for="{{avatar}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+											<view class="cu-avatar round sm" style="{{'background-image:'+('url('+avatar[index]+')')+';'}}"></view>
+										</block>
+									</view>
+								</view><textarea class="solid padding margin-left-lg" style="width:90%;" placeholder="(已开启评论审核模式,评论审核通过后方能显示)"
+								 data-event-opts="{{[['input',[['__set_model',['','commentText','$event',[]]]]]]}}" value="{{commentText}}"
+								 bindinput="__e"></textarea>
+								<view class="flex justify-between padding">
+									<view><text class="text-bold padding-lr text-red">{{"你的ID："+userInfo.nickName}}</text></view>
+									<view style="width:35%;"><button data-event-opts="{{[['tap',[['comment',['$event']]]]]}}" class="cu-btn line-base"
+										 style="width:100%;" bindtap="__e">发表</button></view>
+								</view>
+							</view>
+						</block>
+						<block wx:else>
+							<view class="flex"><button class="cu-btn bg-gradual-green " style="width:90%;margin:0 auto;" open-type="getUserInfo"
+								 withCredentials="true" data-event-opts="{{[['getuserinfo',[['getuserinfo',['$event']]]]]}}" bindgetuserinfo="__e">评论功能需要授权后才可以使用</button></view>
+						</block>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{relatedShow}}">
+				<view class="margin-bottom-xl">
+					<view class="cu-bar margin-top-sm">
+						<view class="action" bindtap="__e"><text class="cuIcon-titles text-brown"></text><text class="text-xl text-bold">推荐阅读</text></view>
+					</view>
+					<block wx:for="{{related}}" wx:for-item="item" wx:for-index="__i2__" wx:key="author">
+						<view class="cu-card" data-cid="{{item.cid}}" data-event-opts="{{[['tap',[['goDetails',['$event']]]]]}}" bindtap="__e">
+							<view class="cu-item shadow" style="height:250rpx;">
+								<view class="thumb margin-right" style="{{'height:250rpx;background-size:cover;'+('background-image:'+('url('+item.thumb[0].str_value+')')+';')}}"></view>
+								<view><text>\n</text></view>
+								<view class="text-cut padding-top text-xl text-bold" style="width:180px">{{item.title}}</view>
+								<!--描述拉取暂时失效 <view class="text-content padding-top-xs moretext-cut padding-right-xs">{{item.description[0].str_value}}</view> -->
+								<view><text>\n</text></view>
+								<view class="text-gray text-sm padding-top-sm flex justify-end padding-right-sm"><text class="cuIcon-attention margin-lr-xs "></text>{{''+item.views+''}}<text
+									 class="cuIcon-appreciate margin-lr-xs "></text>{{''+item.likes+''}}<text class="cuIcon-message margin-lr-xs "></text>{{''+item.commentsNum+''}}</view>
+							</view>
+						</view>
+					</block>
+				</view>
+			</block>
+		</view>
+	</block>
+	<view class="margin-bottom-xl"></view>
+	<block wx:if="{{loadModal}}">
+<!-- 		<view class="cu-load load-modal">
+			<view class="gray-text">加载中...</view>
+		</view> -->
+  <view class="bg-white flex-sub radius shadow-lg">
+    <image src="https://image.weilanwl.com/gif/loading-white.gif" mode="aspectFit" class="gif-white response" style="height:240rpx"></image>
+  </view>
+	</block>
+	<view class="{{['cu-modal',modalName=='Modal'?'show':'']}}" >
+		<view class="cu-dialog">
+			<image src="https://cdn.xsiy.ltd/wxxcx/zsm.jpg" mode="aspectFill" class="padding-xl radius margin-top bg-img"></image>
+			<view class="cu-bar bg-white">
+				<view data-event-opts="{{[['tap',[['hideModal',['$event']]]]]}}" class="action margin-0 flex-sub  solid-left" bindtap="__e">好的</view>
+			</view>
+		</view>
+	</view>
+</view>
